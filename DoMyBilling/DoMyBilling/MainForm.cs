@@ -14,7 +14,16 @@ namespace DoMyBilling
 {
     public partial class MainForm : Form
     {
-        Bill bill = new Bill();
+        Bill bill = createNewBill();
+
+        private static Bill createNewBill()
+        {
+            CompanyInfo cinfo = new CompanyInfo();
+            RecipientInfo rinfo = new RecipientInfo();
+            List<ItemInfo> items = new List<ItemInfo>();
+            Bill newBill = new Bill(cinfo, rinfo, items);
+            return newBill;
+        }
 
         public MainForm()
         {
@@ -36,36 +45,38 @@ namespace DoMyBilling
                 filePath = ofd.FileName;
                 textBoxPath.Text = filePath;
                 bill = ReadCSV(filePath, bill);
-
+                FillInfoFields(bill);
             }
+        }
+
+        private void FillInfoFields(Bill bill)
+        {
+            lbl_companyName.Text = bill.Company.CompanyName;
+            lbl_companyAddress1.Text = bill.Company.AddressPostcodeCity;
+            lbl_companyAddress2.Text = bill.Company.AddressStreetNumber;
+            lbl_companyTaxID.Text = bill.Company.TaxNumber;
+
+            lbl_recipientName.Text = bill.Recipient.RecipientName;
+            lbl_recipientAddress1.Text = bill.Recipient.AddressPostcodeCity;
+            lbl_recipientAddress2.Text = bill.Recipient.AddressStreetNumber;
+            lbl_recipientTaxID.Text = bill.Recipient.TaxNumber;
         }
 
         private Bill ReadCSV(string csvpath, Bill bill)
         {
             using (StreamReader sr = new StreamReader(csvpath, Encoding.Default))
             {
-                var companyInfo = sr.ReadLine().Split(';');
-                bill.Company.CompanyName = companyInfo[0];
-                bill.Company.AddressPostcodeCity = companyInfo[1];
-                bill.Company.AddressStreetNumber = companyInfo[2];
-                bill.Company.TaxNumber = companyInfo[3];
+                string[] companyInfo = sr.ReadLine().Split(';');
+                bill.Company = new CompanyInfo(companyInfo[0], companyInfo[1], companyInfo[2], companyInfo[3]);
 
-                var recipientInfo = sr.ReadLine().Split(';');
-                bill.Recipient.RecipientName = recipientInfo[0];
-                bill.Recipient.AddressPostcodeCity = recipientInfo[1];
-                bill.Recipient.AddressStreetNumber = recipientInfo[2];
-                bill.Recipient.TaxNumber = recipientInfo[3];
+                string[] recipientInfo = sr.ReadLine().Split(';');
+                bill.Recipient = new RecipientInfo(recipientInfo[0], recipientInfo[1], recipientInfo[2], recipientInfo[3]);
 
                 while (!sr.EndOfStream)
                 {
-                    var itemInfo = sr.ReadLine().Split(';');
-                    bill.Items.Add(new ItemInfo()
-                    {
-                        Item = itemInfo[0],
-                        Price = Convert.ToInt32(itemInfo[1]),
-                        Quantity = Convert.ToInt32(itemInfo[2]),
-                        Sum = Convert.ToInt32(itemInfo[3]),
-                    });
+                    string[] itemInfo = sr.ReadLine().Split(';');
+                    ItemInfo temp = new ItemInfo(itemInfo[0], int.Parse(itemInfo[1]), int.Parse(itemInfo[2]), int.Parse(itemInfo[3]));
+                    bill.Items.Add(temp);
                 }
             }
             return bill;
