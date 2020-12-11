@@ -11,5 +11,6 @@ namespace DoMyBilling.Entities
         public string RecipientName { get; set; }
         public string AddressPostcodeCity { get; set; }
         public string AddressStreetNumber { get; set; }
+        public string TaxNumber { get; set; }
     }
 }

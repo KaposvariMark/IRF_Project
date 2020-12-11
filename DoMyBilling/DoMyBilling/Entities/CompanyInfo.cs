@@ -11,9 +11,6 @@ namespace DoMyBilling.Entities
         public string CompanyName { get; set; }
         public string AddressPostcodeCity { get; set; }
         public string AddressStreetNumber { get; set; }
-        public string PhoneNumber { get; set; }
-        public string Fax { get; set; }
-        public string WebSite { get; set; }
-        public string Email { get; set; }
+        public string TaxNumber { get; set; }
     }
 }

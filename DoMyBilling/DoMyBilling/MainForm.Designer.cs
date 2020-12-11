@@ -58,6 +58,7 @@
             this.importCSVToolStripMenuItem.Name = "importCSVToolStripMenuItem";
             this.importCSVToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.importCSVToolStripMenuItem.Text = "Import CSV";
+            this.importCSVToolStripMenuItem.Click += new System.EventHandler(this.importCSVToolStripMenuItem_Click);
             // 
             // textBoxPath
             // 
@@ -66,7 +67,7 @@
             this.textBoxPath.Size = new System.Drawing.Size(100, 20);
             this.textBoxPath.TabIndex = 1;
             // 
-            // Form1
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -74,7 +75,7 @@
             this.Controls.Add(this.textBoxPath);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "Form1";
+            this.Name = "MainForm";
             this.Text = "Form1";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
