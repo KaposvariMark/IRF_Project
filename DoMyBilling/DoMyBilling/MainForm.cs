@@ -9,12 +9,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Excel = Microsoft.Office.Interop.Excel;
+using System.Reflection;
 
 namespace DoMyBilling
 {
     public partial class MainForm : Form
     {
         Bill bill = createNewBill();
+
+        Excel.Application xlApp; // A Microsoft Excel alkalmazás
+        Excel.Workbook xlWB; // A létrehozott munkafüzet
+        Excel.Worksheet xlSheet; // Munkalap a munkafüzeten belül
 
         private static Bill createNewBill()
         {
@@ -44,25 +50,25 @@ namespace DoMyBilling
             {
                 filePath = ofd.FileName;
                 textBoxPath.Text = filePath;
-                bill = ReadCSV(filePath, bill);
-                FillInfoFields(bill);
+                bill = readCSV(filePath, bill);
+                autoFillInfoFields(bill);
             }
         }
 
-        private void FillInfoFields(Bill bill)
+        private void autoFillInfoFields(Bill bill)
         {
-            lbl_companyName.Text = bill.Company.CompanyName;
-            lbl_companyAddress1.Text = bill.Company.AddressPostcodeCity;
-            lbl_companyAddress2.Text = bill.Company.AddressStreetNumber;
-            lbl_companyTaxID.Text = bill.Company.TaxNumber;
+            textBox_cName.Text = bill.Company.CompanyName;
+            textBox_cAddress1.Text = bill.Company.AddressPostcodeCity;
+            textBox_cAddress2.Text = bill.Company.AddressStreetNumber;
+            textBox_cTax.Text = bill.Company.TaxNumber;
 
-            lbl_recipientName.Text = bill.Recipient.RecipientName;
-            lbl_recipientAddress1.Text = bill.Recipient.AddressPostcodeCity;
-            lbl_recipientAddress2.Text = bill.Recipient.AddressStreetNumber;
-            lbl_recipientTaxID.Text = bill.Recipient.TaxNumber;
+            textBox_rName.Text = bill.Recipient.RecipientName;
+            textBox_rAddress1.Text = bill.Recipient.AddressPostcodeCity;
+            textBox_rAddress2.Text = bill.Recipient.AddressStreetNumber;
+            textBox_rTax.Text = bill.Recipient.TaxNumber;
         }
 
-        private Bill ReadCSV(string csvpath, Bill bill)
+        private Bill readCSV(string csvpath, Bill bill)
         {
             using (StreamReader sr = new StreamReader(csvpath, Encoding.Default))
             {
@@ -80,6 +86,38 @@ namespace DoMyBilling
                 }
             }
             return bill;
+        }
+
+        private void timerTime_Tick(object sender, EventArgs e)
+        {
+            lbl_timerTime.Text = DateTime.Now.ToString("HH:mm:ss");
+        }
+
+        private void timerDate_Tick(object sender, EventArgs e)
+        {
+            lbl_timerDate.Text = DateTime.Now.ToString("yyyy.MM.dd.");
+        }
+
+        private void btn_GenerateExcel_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                xlApp = new Excel.Application();
+                xlWB = xlApp.Workbooks.Open(@"C:\Users\Kaposvári Márk\source\repos\IRF_Project\DoMyBilling\DoMyBilling\ExcelBills\BillType1.xlsx");
+                xlSheet = xlWB.ActiveSheet;
+                //createTable();
+                xlApp.Visible = true;
+                xlApp.UserControl = true;
+            }
+            catch (Exception ex)
+            {
+                string errMsg = string.Format("Error: {0}\nLine: {1}", ex.Message, ex.Source);
+                MessageBox.Show(errMsg, "Error");
+                xlWB.Close(false, Type.Missing, Type.Missing);
+                xlApp.Quit();
+                xlWB = null;
+                xlApp = null;
+            }
         }
     }
 }

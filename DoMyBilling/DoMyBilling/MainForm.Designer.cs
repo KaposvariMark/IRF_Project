@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importCSVToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -37,21 +38,26 @@
             this.lbl_cAddress2 = new System.Windows.Forms.Label();
             this.lbl_cAddress1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.lbl_companyName = new System.Windows.Forms.Label();
-            this.lbl_companyAddress1 = new System.Windows.Forms.Label();
-            this.lbl_companyAddress2 = new System.Windows.Forms.Label();
-            this.lbl_companyTaxID = new System.Windows.Forms.Label();
             this.labelCompanyInfo = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.labelRecipientInfo = new System.Windows.Forms.Label();
-            this.lbl_recipientTaxID = new System.Windows.Forms.Label();
-            this.lbl_recipientAddress2 = new System.Windows.Forms.Label();
-            this.lbl_recipientAddress1 = new System.Windows.Forms.Label();
-            this.lbl_recipientName = new System.Windows.Forms.Label();
             this.lbl_rName = new System.Windows.Forms.Label();
             this.lbl_rTaxID = new System.Windows.Forms.Label();
             this.lbl_rAddress2 = new System.Windows.Forms.Label();
             this.lbl_rAddress1 = new System.Windows.Forms.Label();
+            this.timerDate = new System.Windows.Forms.Timer(this.components);
+            this.timerTime = new System.Windows.Forms.Timer(this.components);
+            this.lbl_timerTime = new System.Windows.Forms.Label();
+            this.lbl_timerDate = new System.Windows.Forms.Label();
+            this.textBox_cName = new System.Windows.Forms.TextBox();
+            this.textBox_cAddress1 = new System.Windows.Forms.TextBox();
+            this.textBox_cAddress2 = new System.Windows.Forms.TextBox();
+            this.textBox_cTax = new System.Windows.Forms.TextBox();
+            this.textBox_rName = new System.Windows.Forms.TextBox();
+            this.textBox_rAddress1 = new System.Windows.Forms.TextBox();
+            this.textBox_rAddress2 = new System.Windows.Forms.TextBox();
+            this.textBox_rTax = new System.Windows.Forms.TextBox();
+            this.btn_GenerateExcel = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -63,7 +69,7 @@
             this.fileToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(734, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(859, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -78,7 +84,7 @@
             // importCSVToolStripMenuItem
             // 
             this.importCSVToolStripMenuItem.Name = "importCSVToolStripMenuItem";
-            this.importCSVToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.importCSVToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.importCSVToolStripMenuItem.Text = "Import CSV";
             this.importCSVToolStripMenuItem.Click += new System.EventHandler(this.importCSVToolStripMenuItem_Click);
             // 
@@ -131,11 +137,11 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.textBox_cTax);
+            this.panel1.Controls.Add(this.textBox_cAddress2);
+            this.panel1.Controls.Add(this.textBox_cAddress1);
+            this.panel1.Controls.Add(this.textBox_cName);
             this.panel1.Controls.Add(this.labelCompanyInfo);
-            this.panel1.Controls.Add(this.lbl_companyTaxID);
-            this.panel1.Controls.Add(this.lbl_companyAddress2);
-            this.panel1.Controls.Add(this.lbl_companyAddress1);
-            this.panel1.Controls.Add(this.lbl_companyName);
             this.panel1.Controls.Add(this.lbl_cName);
             this.panel1.Controls.Add(this.lbl_taxID);
             this.panel1.Controls.Add(this.lbl_cAddress2);
@@ -144,50 +150,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(350, 300);
             this.panel1.TabIndex = 6;
-            // 
-            // lbl_companyName
-            // 
-            this.lbl_companyName.AutoSize = true;
-            this.lbl_companyName.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lbl_companyName.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_companyName.Location = new System.Drawing.Point(135, 75);
-            this.lbl_companyName.Name = "lbl_companyName";
-            this.lbl_companyName.Size = new System.Drawing.Size(68, 18);
-            this.lbl_companyName.TabIndex = 6;
-            this.lbl_companyName.Text = "PlaceHolder";
-            // 
-            // lbl_companyAddress1
-            // 
-            this.lbl_companyAddress1.AutoSize = true;
-            this.lbl_companyAddress1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lbl_companyAddress1.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_companyAddress1.Location = new System.Drawing.Point(135, 125);
-            this.lbl_companyAddress1.Name = "lbl_companyAddress1";
-            this.lbl_companyAddress1.Size = new System.Drawing.Size(68, 18);
-            this.lbl_companyAddress1.TabIndex = 7;
-            this.lbl_companyAddress1.Text = "PlaceHolder";
-            // 
-            // lbl_companyAddress2
-            // 
-            this.lbl_companyAddress2.AutoSize = true;
-            this.lbl_companyAddress2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lbl_companyAddress2.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_companyAddress2.Location = new System.Drawing.Point(135, 175);
-            this.lbl_companyAddress2.Name = "lbl_companyAddress2";
-            this.lbl_companyAddress2.Size = new System.Drawing.Size(68, 18);
-            this.lbl_companyAddress2.TabIndex = 8;
-            this.lbl_companyAddress2.Text = "PlaceHolder";
-            // 
-            // lbl_companyTaxID
-            // 
-            this.lbl_companyTaxID.AutoSize = true;
-            this.lbl_companyTaxID.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lbl_companyTaxID.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_companyTaxID.Location = new System.Drawing.Point(135, 225);
-            this.lbl_companyTaxID.Name = "lbl_companyTaxID";
-            this.lbl_companyTaxID.Size = new System.Drawing.Size(68, 18);
-            this.lbl_companyTaxID.TabIndex = 9;
-            this.lbl_companyTaxID.Text = "PlaceHolder";
             // 
             // labelCompanyInfo
             // 
@@ -201,11 +163,11 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.textBox_rTax);
+            this.panel2.Controls.Add(this.textBox_rAddress2);
+            this.panel2.Controls.Add(this.textBox_rAddress1);
+            this.panel2.Controls.Add(this.textBox_rName);
             this.panel2.Controls.Add(this.labelRecipientInfo);
-            this.panel2.Controls.Add(this.lbl_recipientTaxID);
-            this.panel2.Controls.Add(this.lbl_recipientAddress2);
-            this.panel2.Controls.Add(this.lbl_recipientAddress1);
-            this.panel2.Controls.Add(this.lbl_recipientName);
             this.panel2.Controls.Add(this.lbl_rName);
             this.panel2.Controls.Add(this.lbl_rTaxID);
             this.panel2.Controls.Add(this.lbl_rAddress2);
@@ -225,59 +187,15 @@
             this.labelRecipientInfo.TabIndex = 10;
             this.labelRecipientInfo.Text = "Recipient Info:";
             // 
-            // lbl_recipientTaxID
-            // 
-            this.lbl_recipientTaxID.AutoSize = true;
-            this.lbl_recipientTaxID.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lbl_recipientTaxID.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_recipientTaxID.Location = new System.Drawing.Point(135, 225);
-            this.lbl_recipientTaxID.Name = "lbl_recipientTaxID";
-            this.lbl_recipientTaxID.Size = new System.Drawing.Size(68, 18);
-            this.lbl_recipientTaxID.TabIndex = 9;
-            this.lbl_recipientTaxID.Text = "PlaceHolder";
-            // 
-            // lbl_recipientAddress2
-            // 
-            this.lbl_recipientAddress2.AutoSize = true;
-            this.lbl_recipientAddress2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lbl_recipientAddress2.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_recipientAddress2.Location = new System.Drawing.Point(135, 175);
-            this.lbl_recipientAddress2.Name = "lbl_recipientAddress2";
-            this.lbl_recipientAddress2.Size = new System.Drawing.Size(68, 18);
-            this.lbl_recipientAddress2.TabIndex = 8;
-            this.lbl_recipientAddress2.Text = "PlaceHolder";
-            // 
-            // lbl_recipientAddress1
-            // 
-            this.lbl_recipientAddress1.AutoSize = true;
-            this.lbl_recipientAddress1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lbl_recipientAddress1.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_recipientAddress1.Location = new System.Drawing.Point(135, 125);
-            this.lbl_recipientAddress1.Name = "lbl_recipientAddress1";
-            this.lbl_recipientAddress1.Size = new System.Drawing.Size(68, 18);
-            this.lbl_recipientAddress1.TabIndex = 7;
-            this.lbl_recipientAddress1.Text = "PlaceHolder";
-            // 
-            // lbl_recipientName
-            // 
-            this.lbl_recipientName.AutoSize = true;
-            this.lbl_recipientName.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lbl_recipientName.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbl_recipientName.Location = new System.Drawing.Point(135, 75);
-            this.lbl_recipientName.Name = "lbl_recipientName";
-            this.lbl_recipientName.Size = new System.Drawing.Size(68, 18);
-            this.lbl_recipientName.TabIndex = 6;
-            this.lbl_recipientName.Text = "PlaceHolder";
-            // 
             // lbl_rName
             // 
             this.lbl_rName.AutoSize = true;
             this.lbl_rName.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.lbl_rName.Location = new System.Drawing.Point(30, 75);
             this.lbl_rName.Name = "lbl_rName";
-            this.lbl_rName.Size = new System.Drawing.Size(88, 16);
+            this.lbl_rName.Size = new System.Drawing.Size(85, 16);
             this.lbl_rName.TabIndex = 2;
-            this.lbl_rName.Text = "Company Name:";
+            this.lbl_rName.Text = "Recipient Name:";
             // 
             // lbl_rTaxID
             // 
@@ -309,11 +227,108 @@
             this.lbl_rAddress1.TabIndex = 5;
             this.lbl_rAddress1.Text = "Postcode and City:";
             // 
+            // timerDate
+            // 
+            this.timerDate.Enabled = true;
+            this.timerDate.Tick += new System.EventHandler(this.timerDate_Tick);
+            // 
+            // timerTime
+            // 
+            this.timerTime.Enabled = true;
+            this.timerTime.Tick += new System.EventHandler(this.timerTime_Tick);
+            // 
+            // lbl_timerTime
+            // 
+            this.lbl_timerTime.AutoSize = true;
+            this.lbl_timerTime.Location = new System.Drawing.Point(794, 415);
+            this.lbl_timerTime.Name = "lbl_timerTime";
+            this.lbl_timerTime.Size = new System.Drawing.Size(53, 13);
+            this.lbl_timerTime.TabIndex = 8;
+            this.lbl_timerTime.Text = "óó:pp:mm";
+            // 
+            // lbl_timerDate
+            // 
+            this.lbl_timerDate.AutoSize = true;
+            this.lbl_timerDate.Location = new System.Drawing.Point(715, 415);
+            this.lbl_timerDate.Name = "lbl_timerDate";
+            this.lbl_timerDate.Size = new System.Drawing.Size(61, 13);
+            this.lbl_timerDate.TabIndex = 9;
+            this.lbl_timerDate.Text = "éééé:hh:nn";
+            // 
+            // textBox_cName
+            // 
+            this.textBox_cName.Location = new System.Drawing.Point(124, 74);
+            this.textBox_cName.Name = "textBox_cName";
+            this.textBox_cName.Size = new System.Drawing.Size(223, 20);
+            this.textBox_cName.TabIndex = 10;
+            // 
+            // textBox_cAddress1
+            // 
+            this.textBox_cAddress1.Location = new System.Drawing.Point(132, 124);
+            this.textBox_cAddress1.Name = "textBox_cAddress1";
+            this.textBox_cAddress1.Size = new System.Drawing.Size(215, 20);
+            this.textBox_cAddress1.TabIndex = 11;
+            // 
+            // textBox_cAddress2
+            // 
+            this.textBox_cAddress2.Location = new System.Drawing.Point(115, 174);
+            this.textBox_cAddress2.Name = "textBox_cAddress2";
+            this.textBox_cAddress2.Size = new System.Drawing.Size(232, 20);
+            this.textBox_cAddress2.TabIndex = 12;
+            // 
+            // textBox_cTax
+            // 
+            this.textBox_cTax.Location = new System.Drawing.Point(107, 224);
+            this.textBox_cTax.Name = "textBox_cTax";
+            this.textBox_cTax.Size = new System.Drawing.Size(240, 20);
+            this.textBox_cTax.TabIndex = 13;
+            // 
+            // textBox_rName
+            // 
+            this.textBox_rName.Location = new System.Drawing.Point(120, 74);
+            this.textBox_rName.Name = "textBox_rName";
+            this.textBox_rName.Size = new System.Drawing.Size(227, 20);
+            this.textBox_rName.TabIndex = 14;
+            // 
+            // textBox_rAddress1
+            // 
+            this.textBox_rAddress1.Location = new System.Drawing.Point(132, 124);
+            this.textBox_rAddress1.Name = "textBox_rAddress1";
+            this.textBox_rAddress1.Size = new System.Drawing.Size(215, 20);
+            this.textBox_rAddress1.TabIndex = 15;
+            // 
+            // textBox_rAddress2
+            // 
+            this.textBox_rAddress2.Location = new System.Drawing.Point(115, 174);
+            this.textBox_rAddress2.Name = "textBox_rAddress2";
+            this.textBox_rAddress2.Size = new System.Drawing.Size(232, 20);
+            this.textBox_rAddress2.TabIndex = 16;
+            // 
+            // textBox_rTax
+            // 
+            this.textBox_rTax.Location = new System.Drawing.Point(107, 224);
+            this.textBox_rTax.Name = "textBox_rTax";
+            this.textBox_rTax.Size = new System.Drawing.Size(240, 20);
+            this.textBox_rTax.TabIndex = 17;
+            // 
+            // btn_GenerateExcel
+            // 
+            this.btn_GenerateExcel.Location = new System.Drawing.Point(326, 405);
+            this.btn_GenerateExcel.Name = "btn_GenerateExcel";
+            this.btn_GenerateExcel.Size = new System.Drawing.Size(75, 23);
+            this.btn_GenerateExcel.TabIndex = 10;
+            this.btn_GenerateExcel.Text = "Generate";
+            this.btn_GenerateExcel.UseVisualStyleBackColor = true;
+            this.btn_GenerateExcel.Click += new System.EventHandler(this.btn_GenerateExcel_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(734, 461);
+            this.ClientSize = new System.Drawing.Size(859, 448);
+            this.Controls.Add(this.btn_GenerateExcel);
+            this.Controls.Add(this.lbl_timerDate);
+            this.Controls.Add(this.lbl_timerTime);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.textBoxPath);
@@ -343,21 +358,26 @@
         private System.Windows.Forms.Label lbl_cAddress2;
         private System.Windows.Forms.Label lbl_cAddress1;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label lbl_companyTaxID;
-        private System.Windows.Forms.Label lbl_companyAddress2;
-        private System.Windows.Forms.Label lbl_companyAddress1;
-        private System.Windows.Forms.Label lbl_companyName;
         private System.Windows.Forms.Label labelCompanyInfo;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label labelRecipientInfo;
-        private System.Windows.Forms.Label lbl_recipientTaxID;
-        private System.Windows.Forms.Label lbl_recipientAddress2;
-        private System.Windows.Forms.Label lbl_recipientAddress1;
-        private System.Windows.Forms.Label lbl_recipientName;
         private System.Windows.Forms.Label lbl_rName;
         private System.Windows.Forms.Label lbl_rTaxID;
         private System.Windows.Forms.Label lbl_rAddress2;
         private System.Windows.Forms.Label lbl_rAddress1;
+        private System.Windows.Forms.Timer timerDate;
+        private System.Windows.Forms.Timer timerTime;
+        private System.Windows.Forms.Label lbl_timerTime;
+        private System.Windows.Forms.Label lbl_timerDate;
+        private System.Windows.Forms.TextBox textBox_cTax;
+        private System.Windows.Forms.TextBox textBox_cAddress2;
+        private System.Windows.Forms.TextBox textBox_cAddress1;
+        private System.Windows.Forms.TextBox textBox_cName;
+        private System.Windows.Forms.TextBox textBox_rTax;
+        private System.Windows.Forms.TextBox textBox_rAddress2;
+        private System.Windows.Forms.TextBox textBox_rAddress1;
+        private System.Windows.Forms.TextBox textBox_rName;
+        private System.Windows.Forms.Button btn_GenerateExcel;
     }
 }
 
