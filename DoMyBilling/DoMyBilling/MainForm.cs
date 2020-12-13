@@ -34,6 +34,9 @@ namespace DoMyBilling
         public MainForm()
         {
             InitializeComponent();
+
+            bill = readCSV(@"C:\Users\Kaposvári Márk\source\repos\IRF_Project\DoMyBilling\DoMyBilling\bin\Debug\PrefectTestCSV.csv", bill);
+            autoFillInfoFields(bill);
         }
 
         private void importCSVToolStripMenuItem_Click(object sender, EventArgs e)
@@ -66,11 +69,17 @@ namespace DoMyBilling
             textBox_rAddress1.Text = bill.Recipient.AddressPostcodeCity;
             textBox_rAddress2.Text = bill.Recipient.AddressStreetNumber;
             textBox_rTax.Text = bill.Recipient.TaxNumber;
+
+            foreach (ItemInfo item in bill.Items)
+            {
+                string nextItem = item.Item + "; " + item.Quantity + " db; " + item.Sum;
+                listBox1.Items.Add(nextItem);
+            }
         }
 
         private Bill readCSV(string csvpath, Bill bill)
         {
-            using (StreamReader sr = new StreamReader(csvpath, Encoding.Default))
+            using (StreamReader sr = new StreamReader(csvpath, Encoding.UTF8))
             {
                 string[] companyInfo = sr.ReadLine().Split(';');
                 bill.Company = new CompanyInfo(companyInfo[0], companyInfo[1], companyInfo[2], companyInfo[3]);
@@ -103,9 +112,12 @@ namespace DoMyBilling
             try
             {
                 xlApp = new Excel.Application();
-                xlWB = xlApp.Workbooks.Open(@"C:\Users\Kaposvári Márk\source\repos\IRF_Project\DoMyBilling\DoMyBilling\ExcelBills\BillType1.xlsx");
+                xlWB = xlApp.Workbooks.Open(@"C:\Users\Kaposvári Márk\source\repos\IRF_Project\DoMyBilling\DoMyBilling\ExcelBills\BillTemplate.xlsx");
                 xlSheet = xlWB.ActiveSheet;
-                //createTable();
+                xlSheet.Copy(Type.Missing, Type.Missing); // Lemásolja a kész számlát, hogy ne az eredeti változzon
+                xlSheet = xlApp.Workbooks[2].Sheets[1]; // Megnyitja a másolatot
+                xlApp.Workbooks[1].Close(); // Bezárja az eredetit
+                fillBill();
                 xlApp.Visible = true;
                 xlApp.UserControl = true;
             }
@@ -118,6 +130,68 @@ namespace DoMyBilling
                 xlWB = null;
                 xlApp = null;
             }
+        }
+
+        private void fillBill()
+        {
+            //Date
+            xlSheet.Cells[3, 5] = DateTime.Now.ToString("yyyy.MM.dd. - HH:mm:ss");
+
+            //BillID
+            xlSheet.Cells[3, 3] = "123456789";
+
+            //CompanyInfo
+            xlSheet.Cells[5, 3] = bill.Company.CompanyName;
+            xlSheet.Cells[6, 3] = bill.Company.AddressPostcodeCity;
+            xlSheet.Cells[7, 3] = bill.Company.AddressStreetNumber;
+            xlSheet.Cells[8, 3] = bill.Company.TaxNumber;
+
+            //RecipientInfo
+            xlSheet.Cells[5, 5] = bill.Recipient.RecipientName;
+            xlSheet.Cells[6, 5] = bill.Recipient.AddressPostcodeCity;
+            xlSheet.Cells[7, 5] = bill.Recipient.AddressStreetNumber;
+            xlSheet.Cells[8, 5] = bill.Recipient.TaxNumber;
+
+            int itemsStrartingRow = 11;
+            int counter = itemsStrartingRow;
+            foreach (ItemInfo item in bill.Items)
+            {
+                xlSheet.Cells[counter, 2] = item.Item;
+                xlSheet.Cells[counter, 3] = item.Quantity;
+                xlSheet.Cells[counter, 4] = item.Price;
+                xlSheet.Cells[counter, 5] = item.Sum;
+                counter++;
+            }
+
+            for (int i = itemsStrartingRow; i < counter; i++)
+            {
+                Excel.Range ItemRowRange = xlSheet.get_Range(GetCell(i, 2), GetCell(i, 5));
+                ItemRowRange.RowHeight = 40;
+                ItemRowRange.VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                ItemRowRange.EntireColumn.AutoFit();
+                ItemRowRange.Font.Size = 14;
+                ItemRowRange.Font.Name = "Tahoma";
+
+                if (i % 2 == 0) ItemRowRange.Interior.Color = Color.LightGray; 
+                else ItemRowRange.Interior.Color = Color.FromArgb(230,230,230);
+            }
+        }
+
+        private string GetCell(int x, int y)
+        {
+            string ExcelCoordinate = "";
+            int dividend = y;
+            int modulo;
+
+            while (dividend > 0)
+            {
+                modulo = (dividend - 1) % 26;
+                ExcelCoordinate = Convert.ToChar(65 + modulo).ToString() + ExcelCoordinate;
+                dividend = (int)((dividend - modulo) / 26);
+            }
+            ExcelCoordinate += x.ToString();
+
+            return ExcelCoordinate;
         }
     }
 }
