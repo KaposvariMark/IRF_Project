@@ -152,12 +152,13 @@ namespace DoMyBilling
             xlSheet.Cells[7, 5] = bill.Recipient.AddressStreetNumber;
             xlSheet.Cells[8, 5] = bill.Recipient.TaxNumber;
 
+            //ItemInfos
             int itemsStrartingRow = 11;
             int counter = itemsStrartingRow;
             foreach (ItemInfo item in bill.Items)
             {
                 xlSheet.Cells[counter, 2] = item.Item;
-                xlSheet.Cells[counter, 3] = item.Quantity;
+                xlSheet.Cells[counter, 3] = item.Quantity + " db";
                 xlSheet.Cells[counter, 4] = item.Price;
                 xlSheet.Cells[counter, 5] = item.Sum;
                 counter++;
@@ -166,15 +167,30 @@ namespace DoMyBilling
             for (int i = itemsStrartingRow; i < counter; i++)
             {
                 Excel.Range ItemRowRange = xlSheet.get_Range(GetCell(i, 2), GetCell(i, 5));
-                ItemRowRange.RowHeight = 40;
+                ItemRowRange.RowHeight = 35;
                 ItemRowRange.VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
                 ItemRowRange.EntireColumn.AutoFit();
-                ItemRowRange.Font.Size = 14;
+                ItemRowRange.Font.Size = 12;
                 ItemRowRange.Font.Name = "Tahoma";
+                ItemRowRange.Borders[Excel.XlBordersIndex.xlEdgeBottom].Weight = 2d;
 
                 if (i % 2 == 0) ItemRowRange.Interior.Color = Color.LightGray; 
                 else ItemRowRange.Interior.Color = Color.FromArgb(230,230,230);
+
+                // Végösszeg sor formázása
+                if (i + 1 == counter)
+                {
+                    ItemRowRange.Borders[Excel.XlBordersIndex.xlEdgeBottom].Weight = 4d;
+                    Excel.Range ItemRowRangeSum = xlSheet.get_Range(GetCell(i+1, 2), GetCell(i+1, 5));
+                    ItemRowRangeSum.Font.Size = 12;
+                    ItemRowRangeSum.EntireColumn.AutoFit();
+                    ItemRowRangeSum.Font.Name = "Tahoma";
+                }
             }
+            string itemsLastRow = GetCell(counter-1,5);
+
+            xlSheet.Cells[counter, 5].Formula = "=SUM(E11:"+itemsLastRow+")";
+            xlSheet.Cells[counter, 4] = "Fizetendő végösszeg: ";
         }
 
         private string GetCell(int x, int y)
