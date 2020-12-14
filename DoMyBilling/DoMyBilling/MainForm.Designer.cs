@@ -122,32 +122,35 @@
             // 
             // textBox_cTax
             // 
+            this.textBox_cTax.Font = new System.Drawing.Font("Arial Narrow", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.textBox_cTax.Location = new System.Drawing.Point(132, 224);
             this.textBox_cTax.Name = "textBox_cTax";
-            this.textBox_cTax.Size = new System.Drawing.Size(215, 20);
+            this.textBox_cTax.Size = new System.Drawing.Size(215, 21);
             this.textBox_cTax.TabIndex = 13;
             // 
             // textBox_cAddress2
             // 
+            this.textBox_cAddress2.Font = new System.Drawing.Font("Arial Narrow", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.textBox_cAddress2.Location = new System.Drawing.Point(132, 174);
             this.textBox_cAddress2.Name = "textBox_cAddress2";
-            this.textBox_cAddress2.Size = new System.Drawing.Size(215, 20);
+            this.textBox_cAddress2.Size = new System.Drawing.Size(215, 21);
             this.textBox_cAddress2.TabIndex = 12;
             // 
             // textBox_cAddress1
             // 
+            this.textBox_cAddress1.Font = new System.Drawing.Font("Arial Narrow", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.textBox_cAddress1.Location = new System.Drawing.Point(132, 124);
             this.textBox_cAddress1.Name = "textBox_cAddress1";
-            this.textBox_cAddress1.Size = new System.Drawing.Size(215, 20);
+            this.textBox_cAddress1.Size = new System.Drawing.Size(215, 21);
             this.textBox_cAddress1.TabIndex = 11;
             // 
             // textBox_cName
             // 
+            this.textBox_cName.Font = new System.Drawing.Font("Arial Narrow", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.textBox_cName.Location = new System.Drawing.Point(132, 74);
             this.textBox_cName.Name = "textBox_cName";
-            this.textBox_cName.Size = new System.Drawing.Size(215, 20);
+            this.textBox_cName.Size = new System.Drawing.Size(215, 21);
             this.textBox_cName.TabIndex = 10;
-            this.textBox_cName.Text = "1";
             // 
             // labelCompanyInfo
             // 
@@ -178,30 +181,34 @@
             // 
             // textBox_rTax
             // 
+            this.textBox_rTax.Font = new System.Drawing.Font("Arial Narrow", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.textBox_rTax.Location = new System.Drawing.Point(132, 224);
             this.textBox_rTax.Name = "textBox_rTax";
-            this.textBox_rTax.Size = new System.Drawing.Size(215, 20);
+            this.textBox_rTax.Size = new System.Drawing.Size(215, 21);
             this.textBox_rTax.TabIndex = 17;
             // 
             // textBox_rAddress2
             // 
+            this.textBox_rAddress2.Font = new System.Drawing.Font("Arial Narrow", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.textBox_rAddress2.Location = new System.Drawing.Point(132, 174);
             this.textBox_rAddress2.Name = "textBox_rAddress2";
-            this.textBox_rAddress2.Size = new System.Drawing.Size(215, 20);
+            this.textBox_rAddress2.Size = new System.Drawing.Size(215, 21);
             this.textBox_rAddress2.TabIndex = 16;
             // 
             // textBox_rAddress1
             // 
+            this.textBox_rAddress1.Font = new System.Drawing.Font("Arial Narrow", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.textBox_rAddress1.Location = new System.Drawing.Point(132, 124);
             this.textBox_rAddress1.Name = "textBox_rAddress1";
-            this.textBox_rAddress1.Size = new System.Drawing.Size(215, 20);
+            this.textBox_rAddress1.Size = new System.Drawing.Size(215, 21);
             this.textBox_rAddress1.TabIndex = 15;
             // 
             // textBox_rName
             // 
+            this.textBox_rName.Font = new System.Drawing.Font("Arial Narrow", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.textBox_rName.Location = new System.Drawing.Point(132, 74);
             this.textBox_rName.Name = "textBox_rName";
-            this.textBox_rName.Size = new System.Drawing.Size(215, 20);
+            this.textBox_rName.Size = new System.Drawing.Size(215, 21);
             this.textBox_rName.TabIndex = 14;
             // 
             // labelRecipientInfo
@@ -267,23 +274,26 @@
             // lbl_timerTime
             // 
             this.lbl_timerTime.AutoSize = true;
+            this.lbl_timerTime.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.lbl_timerTime.Location = new System.Drawing.Point(941, 21);
             this.lbl_timerTime.Name = "lbl_timerTime";
-            this.lbl_timerTime.Size = new System.Drawing.Size(53, 13);
+            this.lbl_timerTime.Size = new System.Drawing.Size(54, 16);
             this.lbl_timerTime.TabIndex = 8;
             this.lbl_timerTime.Text = "óó:pp:mm";
             // 
             // lbl_timerDate
             // 
             this.lbl_timerDate.AutoSize = true;
+            this.lbl_timerDate.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.lbl_timerDate.Location = new System.Drawing.Point(853, 21);
             this.lbl_timerDate.Name = "lbl_timerDate";
-            this.lbl_timerDate.Size = new System.Drawing.Size(61, 13);
+            this.lbl_timerDate.Size = new System.Drawing.Size(62, 16);
             this.lbl_timerDate.TabIndex = 9;
             this.lbl_timerDate.Text = "éééé:hh:nn";
             // 
             // btn_GenerateExcel
             // 
+            this.btn_GenerateExcel.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.btn_GenerateExcel.Location = new System.Drawing.Point(894, 369);
             this.btn_GenerateExcel.Name = "btn_GenerateExcel";
             this.btn_GenerateExcel.Size = new System.Drawing.Size(100, 30);
@@ -294,14 +304,17 @@
             // 
             // listBox1
             // 
+            this.listBox1.Font = new System.Drawing.Font("Arial Narrow", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.listBox1.FormattingEnabled = true;
+            this.listBox1.ItemHeight = 16;
             this.listBox1.Location = new System.Drawing.Point(774, 59);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(220, 290);
+            this.listBox1.Size = new System.Drawing.Size(220, 292);
             this.listBox1.TabIndex = 11;
             // 
             // btn_ImportCSV
             // 
+            this.btn_ImportCSV.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.btn_ImportCSV.Location = new System.Drawing.Point(14, 12);
             this.btn_ImportCSV.Name = "btn_ImportCSV";
             this.btn_ImportCSV.Size = new System.Drawing.Size(100, 30);
@@ -313,7 +326,7 @@
             // lbl_Path
             // 
             this.lbl_Path.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lbl_Path.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lbl_Path.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.lbl_Path.ForeColor = System.Drawing.SystemColors.ControlText;
             this.lbl_Path.Location = new System.Drawing.Point(145, 18);
             this.lbl_Path.Name = "lbl_Path";
@@ -323,23 +336,25 @@
             // 
             // comboBoxVAT
             // 
+            this.comboBoxVAT.Font = new System.Drawing.Font("Arial Narrow", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.comboBoxVAT.FormattingEnabled = true;
             this.comboBoxVAT.Items.AddRange(new object[] {
             "27",
             "18",
             "5",
             "0"});
-            this.comboBoxVAT.Location = new System.Drawing.Point(774, 375);
+            this.comboBoxVAT.Location = new System.Drawing.Point(836, 373);
             this.comboBoxVAT.Name = "comboBoxVAT";
-            this.comboBoxVAT.Size = new System.Drawing.Size(100, 21);
+            this.comboBoxVAT.Size = new System.Drawing.Size(44, 24);
             this.comboBoxVAT.TabIndex = 15;
             // 
             // labelVAT
             // 
             this.labelVAT.AutoSize = true;
-            this.labelVAT.Location = new System.Drawing.Point(737, 378);
+            this.labelVAT.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelVAT.Location = new System.Drawing.Point(798, 376);
             this.labelVAT.Name = "labelVAT";
-            this.labelVAT.Size = new System.Drawing.Size(31, 13);
+            this.labelVAT.Size = new System.Drawing.Size(32, 16);
             this.labelVAT.TabIndex = 16;
             this.labelVAT.Text = "VAT:";
             // 
@@ -358,6 +373,7 @@
             this.Controls.Add(this.lbl_timerTime);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "MainForm";
             this.Text = "Form1";
             this.panel1.ResumeLayout(false);

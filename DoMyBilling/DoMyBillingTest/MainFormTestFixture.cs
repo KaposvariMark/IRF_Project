@@ -28,5 +28,43 @@ namespace DoMyBillingTest
             // Assert
             Assert.AreEqual(expectedResult, actualResult);
         }
+
+        [
+            Test,
+            TestCase(0, 568, 0),
+            TestCase(5, 899, 44.95),
+            TestCase(18, 999999999, 179999999.82),
+            TestCase(27, 1, 0.27),
+        ]
+        public void TestCalcVAT(int vat, int price, double expectedResult)
+        {
+            // Arrange
+            var mainForm = new MainForm();
+
+            // Act
+            var actualResult = mainForm.CalcVAT(vat, price);
+
+            // Assert
+            Assert.AreEqual(expectedResult, actualResult);
+        }
+
+        [
+            Test,
+            TestCase(2, 2, "B2"),
+            TestCase(2, 3, "C2"),
+            TestCase(1, 1, "A1"),
+            TestCase(27, 19, "S27"),
+        ]
+        public void TestGetCell(int row, int col, string expectedResult)
+        {
+            // Arrange
+            var mainForm = new MainForm();
+
+            // Act
+            var actualResult = mainForm.GetCell(row, col);
+
+            // Assert
+            Assert.AreEqual(expectedResult, actualResult);
+        }
     }
 }
