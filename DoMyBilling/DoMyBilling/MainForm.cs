@@ -16,13 +16,13 @@ namespace DoMyBilling
 {
     public partial class MainForm : Form
     {
-        Bill bill = createNewBill();
+        Bill bill = CreateNewBill();
 
         Excel.Application xlApp; // A Microsoft Excel alkalmazás
         Excel.Workbook xlWB; // A létrehozott munkafüzet
         Excel.Worksheet xlSheet; // Munkalap a munkafüzeten belül
 
-        private static Bill createNewBill()
+        private static Bill CreateNewBill()
         {
             CompanyInfo cinfo = new CompanyInfo();
             RecipientInfo rinfo = new RecipientInfo();
@@ -35,11 +35,11 @@ namespace DoMyBilling
         {
             InitializeComponent();
 
-            bill = readCSV(@"C:\Users\Kaposvári Márk\source\repos\IRF_Project\DoMyBilling\DoMyBilling\bin\Debug\PrefectTestCSV.csv", bill);
-            autoFillInfoFields(bill);
+            bill = ReadCSV(@"C:\Users\Kaposvári Márk\source\repos\IRF_Project\DoMyBilling\DoMyBilling\bin\Debug\PrefectTestCSV.csv", bill);
+            AutoFillInfoFields(bill);
         }
 
-        private void autoFillInfoFields(Bill bill)
+        private void AutoFillInfoFields(Bill bill)
         {
             textBox_cName.Text = bill.Company.CompanyName;
             textBox_cAddress1.Text = bill.Company.AddressPostcodeCity;
@@ -58,7 +58,7 @@ namespace DoMyBilling
             }
         }
 
-        private Bill readCSV(string csvpath, Bill bill)
+        private Bill ReadCSV(string csvpath, Bill bill)
         {
             using (StreamReader sr = new StreamReader(csvpath, Encoding.UTF8))
             {
@@ -103,7 +103,7 @@ namespace DoMyBilling
                 xlSheet.Copy(Type.Missing, Type.Missing); // Lemásolja a kész számlát, hogy ne az eredeti változzon
                 xlSheet = xlApp.Workbooks[2].Sheets[1]; // Megnyitja a másolatot
                 xlApp.Workbooks[1].Close(); // Bezárja az eredetit
-                fillBill();
+                FillBill();
                 xlApp.Visible = true;
                 xlApp.UserControl = true;
             }
@@ -118,13 +118,13 @@ namespace DoMyBilling
             }
         }
 
-        private void fillBill()
+        private void FillBill()
         {
             //Date
             xlSheet.Cells[3, 6] = DateTime.Now.ToString("yyyy.MM.dd. - HH:mm:ss");
 
             //BillID
-            xlSheet.Cells[3, 3] = generateID(bill.Company.CompanyName, bill.Recipient.RecipientName, bill.Items.Count);
+            xlSheet.Cells[3, 3] = GenerateID(bill.Company.CompanyName, bill.Recipient.RecipientName, bill.Items.Count);
 
             //CompanyInfo
             xlSheet.Cells[5, 3] = textBox_cName.Text;
@@ -147,7 +147,7 @@ namespace DoMyBilling
                 xlSheet.Cells[counter, 3] = item.Quantity + " db";
                 xlSheet.Cells[counter, 4] = item.Price;
                 xlSheet.Cells[counter, 5] = comboBoxVAT.SelectedItem.ToString();
-                xlSheet.Cells[counter, 6] = calcVAT(int.Parse(comboBoxVAT.SelectedItem.ToString()), item.Price);
+                xlSheet.Cells[counter, 6] = CalcVAT(int.Parse(comboBoxVAT.SelectedItem.ToString()), item.Price);
                 xlSheet.Cells[counter, 7] = item.Sum;
                 counter++;
             }
@@ -183,20 +183,20 @@ namespace DoMyBilling
             xlSheet.Cells[counter, 5] = "Összesen: ";
         }
 
-        private string generateID(string cName, string rName, int n)
+        public string GenerateID(string cName, string rName, int n)
         {
             cName = cName.ToUpper().Substring(0, 2);
             rName = rName.ToUpper().Substring(0, 2);
-            Random r = new Random();
-            return cName + rName + "-" + (n * r.Next(1000)).ToString();
+            n = ((n * n) + 77) * 12;
+            return cName + rName + "-" + n.ToString();
         }
 
-        private double calcVAT(int vat, int price)
+        public double CalcVAT(int vat, int price)
         {
             return price * (double)vat / 100;
         }
 
-        private string GetCell(int x, int y)
+        public string GetCell(int x, int y)
         {
             string ExcelCoordinate = "";
             int dividend = y;
@@ -227,8 +227,8 @@ namespace DoMyBilling
             {
                 filePath = ofd.FileName;
                 lbl_Path.Text = filePath;
-                bill = readCSV(filePath, bill);
-                autoFillInfoFields(bill);
+                bill = ReadCSV(filePath, bill);
+                AutoFillInfoFields(bill);
             }
         }
         
