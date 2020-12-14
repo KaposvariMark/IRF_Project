@@ -111,7 +111,7 @@ namespace DoMyBilling
         private void FillBill()
         {
             //Date
-            xlSheet.Cells[3, 5] = DateTime.Now.ToString("yyyy.MM.dd. - HH:mm:ss");
+            xlSheet.Cells[3, 5] = DateTime.Now.ToString("yyyy.MM.dd.");
 
             //BillID
             xlSheet.Cells[3, 2] = GenerateID(bill.Company.CompanyName, bill.Recipient.RecipientName, bill.Items.Count);
@@ -165,12 +165,16 @@ namespace DoMyBilling
                     ItemRowRangeSum.Font.Name = "Tahoma";
                 }
             }
-            string sumCell = GetCell(counter-1,6);
-            string vatCell = GetCell(counter-1,5);
 
-            xlSheet.Cells[counter, 6].Formula = "=SUM(F11:" + sumCell + ")";
-            xlSheet.Cells[counter, 5].Formula = "=SUM(E11:" + vatCell + ")";
+            xlSheet.Cells[counter, 6].Formula = "=SUM(F11:" + GetCell(counter - 1, 6) + ")";
+            xlSheet.Cells[counter, 5].Formula = "=SUM(E11:" + GetCell(counter - 1, 5) + ")";
             xlSheet.Cells[counter, 4] = "Összesen: ";
+            xlSheet.Cells[counter + 2, 4] = "Fizetendő végösszeg:";
+            xlSheet.Cells[counter + 2, 6] = "=SUM("+ GetCell(counter, 5) +":" + GetCell(counter, 6) + ")";
+            Excel.Range sumCell = xlSheet.get_Range(GetCell(counter + 2, 4), GetCell(counter + 2, 6));
+            sumCell.Font.Size = 12;
+            sumCell.Font.Name = "Tahoma";
+            sumCell.Font.Bold = true;
         }
 
         public string GenerateID(string cName, string rName, int n)
