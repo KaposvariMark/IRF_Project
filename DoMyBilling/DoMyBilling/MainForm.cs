@@ -39,25 +39,6 @@ namespace DoMyBilling
             autoFillInfoFields(bill);
         }
 
-        private void importCSVToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog ofd = new OpenFileDialog();
-            var filePath = string.Empty;
-
-            ofd.InitialDirectory = "c:\\";
-            ofd.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
-            ofd.FilterIndex = 2;
-            ofd.RestoreDirectory = true;
-
-            if (ofd.ShowDialog() == DialogResult.OK)
-            {
-                filePath = ofd.FileName;
-                textBoxPath.Text = filePath;
-                bill = readCSV(filePath, bill);
-                autoFillInfoFields(bill);
-            }
-        }
-
         private void autoFillInfoFields(Bill bill)
         {
             textBox_cName.Text = bill.Company.CompanyName;
@@ -109,6 +90,11 @@ namespace DoMyBilling
 
         private void btn_GenerateExcel_Click(object sender, EventArgs e)
         {
+            if(comboBoxVAT.SelectedItem == null)
+            {
+                MessageBox.Show("Choose the amount of VAT!");
+                return;
+            }
             try
             {
                 xlApp = new Excel.Application();
@@ -135,22 +121,22 @@ namespace DoMyBilling
         private void fillBill()
         {
             //Date
-            xlSheet.Cells[3, 5] = DateTime.Now.ToString("yyyy.MM.dd. - HH:mm:ss");
+            xlSheet.Cells[3, 6] = DateTime.Now.ToString("yyyy.MM.dd. - HH:mm:ss");
 
             //BillID
-            xlSheet.Cells[3, 3] = "123456789";
+            xlSheet.Cells[3, 3] = generateID(bill.Company.CompanyName, bill.Recipient.RecipientName, bill.Items.Count);
 
             //CompanyInfo
-            xlSheet.Cells[5, 3] = bill.Company.CompanyName;
-            xlSheet.Cells[6, 3] = bill.Company.AddressPostcodeCity;
-            xlSheet.Cells[7, 3] = bill.Company.AddressStreetNumber;
-            xlSheet.Cells[8, 3] = bill.Company.TaxNumber;
+            xlSheet.Cells[5, 3] = textBox_cName.Text;
+            xlSheet.Cells[6, 3] = textBox_cAddress1.Text;
+            xlSheet.Cells[7, 3] = textBox_cAddress2.Text;
+            xlSheet.Cells[8, 3] = textBox_cTax.Text;
 
             //RecipientInfo
-            xlSheet.Cells[5, 5] = bill.Recipient.RecipientName;
-            xlSheet.Cells[6, 5] = bill.Recipient.AddressPostcodeCity;
-            xlSheet.Cells[7, 5] = bill.Recipient.AddressStreetNumber;
-            xlSheet.Cells[8, 5] = bill.Recipient.TaxNumber;
+            xlSheet.Cells[5, 6] = textBox_rName.Text;
+            xlSheet.Cells[6, 6] = textBox_rAddress1.Text;
+            xlSheet.Cells[7, 6] = textBox_rAddress2.Text;
+            xlSheet.Cells[8, 6] = textBox_rTax.Text;
 
             //ItemInfos
             int itemsStrartingRow = 11;
@@ -160,13 +146,15 @@ namespace DoMyBilling
                 xlSheet.Cells[counter, 2] = item.Item;
                 xlSheet.Cells[counter, 3] = item.Quantity + " db";
                 xlSheet.Cells[counter, 4] = item.Price;
-                xlSheet.Cells[counter, 5] = item.Sum;
+                xlSheet.Cells[counter, 5] = comboBoxVAT.SelectedItem.ToString();
+                xlSheet.Cells[counter, 6] = calcVAT(int.Parse(comboBoxVAT.SelectedItem.ToString()), item.Price);
+                xlSheet.Cells[counter, 7] = item.Sum;
                 counter++;
             }
 
             for (int i = itemsStrartingRow; i < counter; i++)
             {
-                Excel.Range ItemRowRange = xlSheet.get_Range(GetCell(i, 2), GetCell(i, 5));
+                Excel.Range ItemRowRange = xlSheet.get_Range(GetCell(i, 2), GetCell(i, 7));
                 ItemRowRange.RowHeight = 35;
                 ItemRowRange.VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
                 ItemRowRange.EntireColumn.AutoFit();
@@ -181,16 +169,31 @@ namespace DoMyBilling
                 if (i + 1 == counter)
                 {
                     ItemRowRange.Borders[Excel.XlBordersIndex.xlEdgeBottom].Weight = 4d;
-                    Excel.Range ItemRowRangeSum = xlSheet.get_Range(GetCell(i+1, 2), GetCell(i+1, 5));
+                    Excel.Range ItemRowRangeSum = xlSheet.get_Range(GetCell(i+1, 2), GetCell(i+1, 7));
                     ItemRowRangeSum.Font.Size = 12;
                     ItemRowRangeSum.EntireColumn.AutoFit();
                     ItemRowRangeSum.Font.Name = "Tahoma";
                 }
             }
-            string itemsLastRow = GetCell(counter-1,5);
+            string sumCell = GetCell(counter-1,7);
+            string vatCell = GetCell(counter-1,6);
 
-            xlSheet.Cells[counter, 5].Formula = "=SUM(E11:"+itemsLastRow+")";
-            xlSheet.Cells[counter, 4] = "Fizetendő végösszeg: ";
+            xlSheet.Cells[counter, 7].Formula = "=SUM(G11:" + sumCell + ")";
+            xlSheet.Cells[counter, 6].Formula = "=SUM(F11:" + vatCell + ")";
+            xlSheet.Cells[counter, 5] = "Összesen: ";
+        }
+
+        private string generateID(string cName, string rName, int n)
+        {
+            cName = cName.ToUpper().Substring(0, 2);
+            rName = rName.ToUpper().Substring(0, 2);
+            Random r = new Random();
+            return cName + rName + "-" + (n * r.Next(1000)).ToString();
+        }
+
+        private double calcVAT(int vat, int price)
+        {
+            return price * (double)vat / 100;
         }
 
         private string GetCell(int x, int y)
@@ -209,5 +212,25 @@ namespace DoMyBilling
 
             return ExcelCoordinate;
         }
+
+        private void btn_ImportCSV_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            var filePath = string.Empty;
+
+            ofd.InitialDirectory = "c:\\";
+            ofd.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
+            ofd.FilterIndex = 2;
+            ofd.RestoreDirectory = true;
+
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                filePath = ofd.FileName;
+                lbl_Path.Text = filePath;
+                bill = readCSV(filePath, bill);
+                autoFillInfoFields(bill);
+            }
+        }
+        
     }
 }

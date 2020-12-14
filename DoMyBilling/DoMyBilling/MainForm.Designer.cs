@@ -29,10 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.importCSVToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.textBoxPath = new System.Windows.Forms.TextBox();
             this.lbl_cName = new System.Windows.Forms.Label();
             this.lbl_taxID = new System.Windows.Forms.Label();
             this.lbl_cAddress2 = new System.Windows.Forms.Label();
@@ -59,42 +55,13 @@
             this.lbl_timerDate = new System.Windows.Forms.Label();
             this.btn_GenerateExcel = new System.Windows.Forms.Button();
             this.listBox1 = new System.Windows.Forms.ListBox();
-            this.menuStrip1.SuspendLayout();
+            this.btn_ImportCSV = new System.Windows.Forms.Button();
+            this.lbl_Path = new System.Windows.Forms.Label();
+            this.comboBoxVAT = new System.Windows.Forms.ComboBox();
+            this.labelVAT = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // menuStrip1
-            // 
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1009, 24);
-            this.menuStrip1.TabIndex = 0;
-            this.menuStrip1.Text = "menuStrip1";
-            // 
-            // fileToolStripMenuItem
-            // 
-            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.importCSVToolStripMenuItem});
-            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
-            this.fileToolStripMenuItem.Text = "File";
-            // 
-            // importCSVToolStripMenuItem
-            // 
-            this.importCSVToolStripMenuItem.Name = "importCSVToolStripMenuItem";
-            this.importCSVToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
-            this.importCSVToolStripMenuItem.Text = "Import CSV";
-            this.importCSVToolStripMenuItem.Click += new System.EventHandler(this.importCSVToolStripMenuItem_Click);
-            // 
-            // textBoxPath
-            // 
-            this.textBoxPath.Location = new System.Drawing.Point(12, 39);
-            this.textBoxPath.Name = "textBoxPath";
-            this.textBoxPath.Size = new System.Drawing.Size(537, 20);
-            this.textBoxPath.TabIndex = 1;
             // 
             // lbl_cName
             // 
@@ -148,7 +115,7 @@
             this.panel1.Controls.Add(this.lbl_taxID);
             this.panel1.Controls.Add(this.lbl_cAddress2);
             this.panel1.Controls.Add(this.lbl_cAddress1);
-            this.panel1.Location = new System.Drawing.Point(12, 76);
+            this.panel1.Location = new System.Drawing.Point(12, 59);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(375, 290);
             this.panel1.TabIndex = 6;
@@ -180,6 +147,7 @@
             this.textBox_cName.Name = "textBox_cName";
             this.textBox_cName.Size = new System.Drawing.Size(215, 20);
             this.textBox_cName.TabIndex = 10;
+            this.textBox_cName.Text = "1";
             // 
             // labelCompanyInfo
             // 
@@ -203,7 +171,7 @@
             this.panel2.Controls.Add(this.lbl_rTaxID);
             this.panel2.Controls.Add(this.lbl_rAddress2);
             this.panel2.Controls.Add(this.lbl_rAddress1);
-            this.panel2.Location = new System.Drawing.Point(393, 76);
+            this.panel2.Location = new System.Drawing.Point(393, 59);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(375, 290);
             this.panel2.TabIndex = 7;
@@ -299,7 +267,7 @@
             // lbl_timerTime
             // 
             this.lbl_timerTime.AutoSize = true;
-            this.lbl_timerTime.Location = new System.Drawing.Point(941, 42);
+            this.lbl_timerTime.Location = new System.Drawing.Point(941, 21);
             this.lbl_timerTime.Name = "lbl_timerTime";
             this.lbl_timerTime.Size = new System.Drawing.Size(53, 13);
             this.lbl_timerTime.TabIndex = 8;
@@ -308,7 +276,7 @@
             // lbl_timerDate
             // 
             this.lbl_timerDate.AutoSize = true;
-            this.lbl_timerDate.Location = new System.Drawing.Point(857, 42);
+            this.lbl_timerDate.Location = new System.Drawing.Point(853, 21);
             this.lbl_timerDate.Name = "lbl_timerDate";
             this.lbl_timerDate.Size = new System.Drawing.Size(61, 13);
             this.lbl_timerDate.TabIndex = 9;
@@ -316,7 +284,7 @@
             // 
             // btn_GenerateExcel
             // 
-            this.btn_GenerateExcel.Location = new System.Drawing.Point(467, 372);
+            this.btn_GenerateExcel.Location = new System.Drawing.Point(894, 369);
             this.btn_GenerateExcel.Name = "btn_GenerateExcel";
             this.btn_GenerateExcel.Size = new System.Drawing.Size(100, 30);
             this.btn_GenerateExcel.TabIndex = 10;
@@ -327,29 +295,71 @@
             // listBox1
             // 
             this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(774, 76);
+            this.listBox1.Location = new System.Drawing.Point(774, 59);
             this.listBox1.Name = "listBox1";
             this.listBox1.Size = new System.Drawing.Size(220, 290);
             this.listBox1.TabIndex = 11;
+            // 
+            // btn_ImportCSV
+            // 
+            this.btn_ImportCSV.Location = new System.Drawing.Point(14, 12);
+            this.btn_ImportCSV.Name = "btn_ImportCSV";
+            this.btn_ImportCSV.Size = new System.Drawing.Size(100, 30);
+            this.btn_ImportCSV.TabIndex = 13;
+            this.btn_ImportCSV.Text = "Import CSV";
+            this.btn_ImportCSV.UseVisualStyleBackColor = true;
+            this.btn_ImportCSV.Click += new System.EventHandler(this.btn_ImportCSV_Click);
+            // 
+            // lbl_Path
+            // 
+            this.lbl_Path.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lbl_Path.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lbl_Path.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.lbl_Path.Location = new System.Drawing.Point(145, 18);
+            this.lbl_Path.Name = "lbl_Path";
+            this.lbl_Path.Size = new System.Drawing.Size(623, 23);
+            this.lbl_Path.TabIndex = 14;
+            this.lbl_Path.Text = "Path:";
+            // 
+            // comboBoxVAT
+            // 
+            this.comboBoxVAT.FormattingEnabled = true;
+            this.comboBoxVAT.Items.AddRange(new object[] {
+            "27",
+            "18",
+            "5",
+            "0"});
+            this.comboBoxVAT.Location = new System.Drawing.Point(774, 375);
+            this.comboBoxVAT.Name = "comboBoxVAT";
+            this.comboBoxVAT.Size = new System.Drawing.Size(100, 21);
+            this.comboBoxVAT.TabIndex = 15;
+            // 
+            // labelVAT
+            // 
+            this.labelVAT.AutoSize = true;
+            this.labelVAT.Location = new System.Drawing.Point(737, 378);
+            this.labelVAT.Name = "labelVAT";
+            this.labelVAT.Size = new System.Drawing.Size(31, 13);
+            this.labelVAT.TabIndex = 16;
+            this.labelVAT.Text = "VAT:";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1009, 411);
+            this.Controls.Add(this.labelVAT);
+            this.Controls.Add(this.comboBoxVAT);
+            this.Controls.Add(this.lbl_Path);
+            this.Controls.Add(this.btn_ImportCSV);
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.btn_GenerateExcel);
             this.Controls.Add(this.lbl_timerDate);
             this.Controls.Add(this.lbl_timerTime);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.textBoxPath);
-            this.Controls.Add(this.menuStrip1);
-            this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
             this.Text = "Form1";
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
@@ -360,11 +370,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem importCSVToolStripMenuItem;
-        private System.Windows.Forms.TextBox textBoxPath;
         private System.Windows.Forms.Label lbl_cName;
         private System.Windows.Forms.Label lbl_taxID;
         private System.Windows.Forms.Label lbl_cAddress2;
@@ -391,6 +396,10 @@
         private System.Windows.Forms.TextBox textBox_rName;
         private System.Windows.Forms.Button btn_GenerateExcel;
         private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.Button btn_ImportCSV;
+        private System.Windows.Forms.Label lbl_Path;
+        private System.Windows.Forms.ComboBox comboBoxVAT;
+        private System.Windows.Forms.Label labelVAT;
     }
 }
 
