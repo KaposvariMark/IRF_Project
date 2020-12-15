@@ -35,7 +35,7 @@ namespace DoMyBilling
         {
             InitializeComponent();
 
-            //bill = ReadCSV(@"C:\Users\Kaposvári Márk\source\repos\IRF_Project\DoMyBilling\DoMyBilling\bin\Debug\PrefectTestCSV.csv", bill);
+            //bill = ReadCSV(@"C:\Users\Kaposvári Márk\source\repos\IRF_Project\DoMyBilling\DoMyBilling\TestCSV\TestCSV.csv", bill);
             //AutoFillInfoFields(bill);
         }
 
@@ -85,10 +85,16 @@ namespace DoMyBilling
                 MessageBox.Show("Choose the amount of VAT!");
                 return;
             }
+            if (!checkTextBoxes())
+            {
+                MessageBox.Show("Load a CSV, or fill all empty fields before the generation!");
+                return;
+            }
             try
             {
+                var projectDir = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
                 xlApp = new Excel.Application();
-                xlWB = xlApp.Workbooks.Open(@"C:\Users\Kaposvári Márk\source\repos\IRF_Project\DoMyBilling\DoMyBilling\ExcelBills\BillTemplate.xlsx");
+                xlWB = xlApp.Workbooks.Open(projectDir + @"\ExcelBills\BillTemplate.xlsx");
                 xlSheet = xlWB.ActiveSheet;
                 xlSheet.Copy(Type.Missing, Type.Missing); // Lemásolja a kész számlát, hogy ne az eredeti változzon
                 xlSheet = xlApp.Workbooks[2].Sheets[1]; // Megnyitja a másolatot
@@ -106,6 +112,19 @@ namespace DoMyBilling
                 xlWB = null;
                 xlApp = null;
             }
+        }
+
+        private bool checkTextBoxes()
+        {
+            if (String.IsNullOrEmpty(textBox_cName.Text)) return false;
+            if (String.IsNullOrEmpty(textBox_cAddress1.Text)) return false;
+            if (String.IsNullOrEmpty(textBox_cAddress2.Text)) return false;
+            if (String.IsNullOrEmpty(textBox_cTax.Text)) return false;
+            if (String.IsNullOrEmpty(textBox_rName.Text)) return false;
+            if (String.IsNullOrEmpty(textBox_rAddress1.Text)) return false;
+            if (String.IsNullOrEmpty(textBox_rAddress2.Text)) return false;
+            if (String.IsNullOrEmpty(textBox_rTax.Text)) return false;
+            else return true;
         }
 
         private void FillBill()

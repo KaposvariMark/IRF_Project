@@ -18,3 +18,6 @@ If you need infromation or help please contact me via email: mark.kaposvari@stud
 
 GNU GENERAL PUBLIC LICENSE 
 Version 3, 29 June 2007
+
+Kaposvári Márk
+SHMUAE
