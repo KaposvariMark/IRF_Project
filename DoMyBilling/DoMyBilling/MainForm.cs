@@ -34,9 +34,6 @@ namespace DoMyBilling
         public MainForm()
         {
             InitializeComponent();
-
-            //bill = ReadCSV(@"C:\Users\Kaposvári Márk\source\repos\IRF_Project\DoMyBilling\DoMyBilling\TestCSV\TestCSV.csv", bill);
-            //AutoFillInfoFields(bill);
         }
 
         private void AutoFillInfoFields(Bill bill)
@@ -149,19 +146,20 @@ namespace DoMyBilling
 
             //ItemInfos
             int itemsStrartingRow = 11;
-            int counter = itemsStrartingRow;
+            int itemRowCount = itemsStrartingRow;
             foreach (ItemInfo item in bill.Items)
             {
-                xlSheet.Cells[counter, 1] = item.Item;
-                xlSheet.Cells[counter, 2] = item.Quantity + " db";
-                xlSheet.Cells[counter, 3] = comboBoxVAT.SelectedItem.ToString();
-                xlSheet.Cells[counter, 4] = item.Price;
-                xlSheet.Cells[counter, 5] = CalcVAT(int.Parse(comboBoxVAT.SelectedItem.ToString()), item.Price);
-                xlSheet.Cells[counter, 6] = item.Sum;
-                counter++;
+                xlSheet.Cells[itemRowCount, 1] = item.Item;
+                xlSheet.Cells[itemRowCount, 2] = item.Quantity + " db";
+                xlSheet.Cells[itemRowCount, 3] = comboBoxVAT.SelectedItem.ToString();
+                xlSheet.Cells[itemRowCount, 4] = item.Price;
+                xlSheet.Cells[itemRowCount, 5] = CalcVAT(int.Parse(comboBoxVAT.SelectedItem.ToString()), item.Price);
+                xlSheet.Cells[itemRowCount, 6] = item.Sum;
+                itemRowCount++;
             }
 
-            for (int i = itemsStrartingRow; i < counter; i++)
+            //ItemInfoFormatting
+            for (int i = itemsStrartingRow; i < itemRowCount; i++)
             {
                 Excel.Range ItemRowRange = xlSheet.get_Range(GetCell(i, 1), GetCell(i, 6));
                 ItemRowRange.RowHeight = 35;
@@ -174,8 +172,8 @@ namespace DoMyBilling
                 if (i % 2 == 0) ItemRowRange.Interior.Color = Color.LightGray; 
                 else ItemRowRange.Interior.Color = Color.FromArgb(230,230,230);
 
-                // Végösszeg sor formázása
-                if (i + 1 == counter)
+                //subSumRowFormatting
+                if (i + 1 == itemRowCount)
                 {
                     ItemRowRange.Borders[Excel.XlBordersIndex.xlEdgeBottom].Weight = 4d;
                     Excel.Range ItemRowRangeSum = xlSheet.get_Range(GetCell(i+1, 1), GetCell(i+1, 6));
@@ -185,12 +183,15 @@ namespace DoMyBilling
                 }
             }
 
-            xlSheet.Cells[counter, 6].Formula = "=SUM(F11:" + GetCell(counter - 1, 6) + ")";
-            xlSheet.Cells[counter, 5].Formula = "=SUM(E11:" + GetCell(counter - 1, 5) + ")";
-            xlSheet.Cells[counter, 4] = "Összesen: ";
-            xlSheet.Cells[counter + 2, 4] = "Fizetendő végösszeg:";
-            xlSheet.Cells[counter + 2, 6] = "=SUM("+ GetCell(counter, 5) +":" + GetCell(counter, 6) + ")";
-            Excel.Range sumCell = xlSheet.get_Range(GetCell(counter + 2, 4), GetCell(counter + 2, 6));
+            //subSumFormatting
+            xlSheet.Cells[itemRowCount, 6].Formula = "=SUM(F11:" + GetCell(itemRowCount - 1, 6) + ")";
+            xlSheet.Cells[itemRowCount, 5].Formula = "=SUM(E11:" + GetCell(itemRowCount - 1, 5) + ")";
+            xlSheet.Cells[itemRowCount, 4] = "Összesen: ";
+            xlSheet.Cells[itemRowCount + 2, 4] = "Fizetendő végösszeg:";
+            xlSheet.Cells[itemRowCount + 2, 6] = "=SUM("+ GetCell(itemRowCount, 5) +":" + GetCell(itemRowCount, 6) + ")";
+
+            //SumFormatting
+            Excel.Range sumCell = xlSheet.get_Range(GetCell(itemRowCount + 2, 4), GetCell(itemRowCount + 2, 6));
             sumCell.Font.Size = 12;
             sumCell.Font.Name = "Tahoma";
             sumCell.Font.Bold = true;

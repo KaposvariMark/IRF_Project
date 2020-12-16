@@ -12,7 +12,7 @@ namespace DoMyBillingTest
     {
         [
             Test,
-            TestCase("Comp", "Recv", 10, "CORE-2124"),
+            TestCase("Company", "Reciever", 10, "CORE-2124"),
             TestCase("Met Csoport", "77 Csoport", 32, "ME77-13212"),
             TestCase("Duna Aszfalt", "Kis Béla", 115, "DUKI-159624"),
             TestCase("Kerox Kft. ", "Videoton Holding", 8, "KEVI-1692"),
@@ -51,8 +51,8 @@ namespace DoMyBillingTest
         [
             Test,
             TestCase(2, 2, "B2"),
-            TestCase(2, 3, "C2"),
-            TestCase(1, 1, "A1"),
+            TestCase(3532, 3, "C3532"),
+            TestCase(1, 1082, "AOP1"),
             TestCase(27, 19, "S27"),
         ]
         public void TestGetCell(int row, int col, string expectedResult)
